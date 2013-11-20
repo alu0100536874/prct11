@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby 
 
-require "gcd.rb"
+require "./gcd.rb"
 
 class Fraccion
 

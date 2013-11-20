@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require './lib/racional.rb'
+require 'racional.rb'
 
 class Matrix
 attr_reader:m, :n, :val, :matrix
