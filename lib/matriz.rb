@@ -80,6 +80,44 @@ require './racional.rb'
     @matrixD.each{|key, value| puts "Fila #{key} Columna #{value}" } 
   end
   
+  
+  def + (other)
+    if (other.is_a?SparseMatrix)
+    aux = Array.new(@m){Array.new(@n){0}}
+	for i in 0...@m do
+	  for j in 0...@n do
+	     aux[i][j] = self.matrix[i][j] + other.matrix[i][j]
+	  end
+	end
+      mr = Matrix.new(other.m, other.n)
+      mr.rellenar(aux)
+      return (mr)
+     end
+  
+   else
+    hash_aux = self.data.merge(other.data){|key, val1, val2| val1.merge(val2){|key2, val1_2, val2_2|val2_2 + val1_2}}
+    SparseMatrix.new(self.fil, self.col, hash_aux)
+   end
+  
+   def - (other)
+    if (other.is_a?SparseMatrix)
+    aux = Array.new(@m){Array.new(@n){0}}
+	for i in 0...@m do
+	  for j in 0...@n do
+	     aux[i][j] = self.matrix[i][j] - other.matrix[i][j]
+	  end
+	end
+      mr = Matrix.new(other.m, other.n)
+      mr.rellenar(aux)
+      return (mr)
+     end
+  
+   else
+    hash_aux = self.data.merge(other.data){|key, val1, val2| val1.merge(val2){|key2, val1_2, val2_2|val2_2 + val1_2}}
+    SparseMatrix.new(self.fil, self.col, hash_aux)
+   end
+   
+   
 end
   
   
@@ -105,6 +143,16 @@ end
  puts "Resta de Matrices"
  mr.mostrar()
  puts
- mc = SparseMatrix.new(2,2,{1 => { 0 => 1, 2 => 7}, 2 => { 1 => 3}})
+ mc = SparseMatrix.new(2,2,{0 => { 0 => 1}, 1 => { 1 => 3}})
  puts "Matriz Dispersa"
  mc.mostrarD()
+ puts
+ puts "Suma Matriz Densa con Dispersa"
+ mr = MatrixDens.new(2,2)
+ mr = mb + mc
+ mr.mostrar()
+ puts
+ puts "Resta Matriz Densa con Dispersa"
+ mr = MatrixDens.new(2,2)
+ mr = mb + mc
+ mr.mostrar()
