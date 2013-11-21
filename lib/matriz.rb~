@@ -66,7 +66,42 @@ require './racional.rb'
      end
   end
   
+#   class SparseVector
+#    attr_reader :vector
+#    
+#       def initialize(h = {})
+# 	  @vector = Hash.new(0)
+#           @vector = @vector.merge!(h)
+#       end
+# 
+#       def [](i)
+#             @vector[i]
+#         end
+#     end
+# 
   class SparseMatrix < Matrix
+#     attr_reader :matrixD
+#         
+#       def initialize(rows,cols, h = {})
+# 	  @matrixD  = Hash.new({})
+#           for k in h.keys do
+#              if h[k].is_a? SparseVector
+# 		@matrixD[k] = h[k]
+#              else
+#                     @matrixD[k] = SparseVector.new(h[k])
+#                 end
+#             end
+#             super(rows,cols)
+#         end
+# 
+#         def [](i)
+#             @matrixD[i]
+#         end
+# 	
+# 	def mostrarD
+# 	  @matrixD.each{|key, value| puts " #{key} is #{value}" } 
+# 	end
+#     end
   
   def initialize(a,b,h = {})
     @matrixD = Hash.new({})
