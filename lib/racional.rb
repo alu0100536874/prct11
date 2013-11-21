@@ -78,30 +78,50 @@ class Fraccion
 	
   #---------------------------------------------------------------------------------------------------------------------------------
 
-	def + (fracaux)
-
-	  mcm = (@denom/gcd(@denom,fracaux.denom)) * fracaux.denom 
-	  numr  = ((mcm/@denom) * @num) + ((mcm/fracaux.denom) * fracaux.num)
-	  if numr  % mcm == 0
-	    aux = numr/mcm
+	def +(fracaux)
+	  if fracaux.is_a? Fraccion
+	    mcm = (@denom/gcd(@denom,fracaux.denom)) * fracaux.denom 
+	    numr  = ((mcm/@denom) * @num) + ((mcm/fracaux.denom) * fracaux.num)
+	    if numr  % mcm == 0
+	      aux = numr/mcm
+	    else
+	      "#{numr}/#{mcm}"
+	    end
 	  else
-	    "#{numr}/#{mcm}"
+	    nfrac= Fraccion.new(fracaux,1) 
+	    mcm = (@denom/gcd(@denom,nfrac.denom)) * nfrac.denom 
+	    numr  = ((mcm/@denom) * @num) + ((mcm/nfrac.denom) * nfrac.num)
+	    if numr  % mcm == 0
+	      aux = numr/mcm
+	    else
+	      "#{numr}/#{mcm}"
+	    end
 	  end
-	end
+	  end
 
   #---------------------------------------------------------------------------------------------------------------------------------
 	
 	def - (fracaux)
 
-	  mcm = (@denom/gcd(@denom,fracaux.denom)) * fracaux.denom 
-	  numr  = ((mcm/@denom) * @num) - ((mcm/fracaux.denom) * fracaux.num)
-	  if numr  % mcm == 0
-	    aux = numr/mcm
+	   if fracaux.is_a? Fraccion
+	    mcm = (@denom/gcd(@denom,fracaux.denom)) * fracaux.denom 
+	    numr  = ((mcm/@denom) * @num) - ((mcm/fracaux.denom) * fracaux.num)
+	    if numr  % mcm == 0
+	      aux = numr/mcm
+	    else
+	      "#{numr}/#{mcm}"
+	    end
 	  else
-	    "#{numr}/#{mcm}"
+	    nfrac= Fraccion.new(fracaux,1) 
+	    mcm = (@denom/gcd(@denom,nfrac.denom)) * nfrac.denom 
+	    numr  = ((mcm/@denom) * @num) - ((mcm/nfrac.denom) * nfrac.num)
+	    if numr  % mcm == 0
+	      aux = numr/mcm
+	    else
+	      "#{numr}/#{mcm}"
+	    end
 	  end
-	end
-	
+	  end
   #---------------------------------------------------------------------------------------------------------------------------------
 	
 	def * (fracaux) 
@@ -169,5 +189,9 @@ class Fraccion
 	end
 		
   #---------------------------------------------------------------------------------------------------------------------------------
+	
+	 def coerce(other)
+	    [Fraccion.new(other), self]
+	end
 	
 end
