@@ -1,4 +1,4 @@
-require './lib/prct09.rb'
+require "./lib/prct09.rb"
 
 describe Matrix do
         before :each do
