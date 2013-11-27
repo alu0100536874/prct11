@@ -58,21 +58,21 @@ require './racional.rb'
     end
       
      
-#     def - (other)
-# #       if (other.is_a?MatrixDens)
-#        aux = Array.new(@m){Array.new(@n){0}}
-# 	for i in 0...@m do
-# 	  for j in 0...@n do
-# 	    aux[i][j] = self.@matrixD[i][j] - other.@matrixD[i][j]
-# 	  end
-# 	end
-# 	mr = MatrixDens.new(other.m, other.n)
-# 	mr.rellenar(aux)
-# 	return (mr)
-# #       else
-# #        puts "BENCHOD"
-# #       end
-#     end
+    def - (other)
+#       if (other.is_a?MatrixDens)
+       aux = Array.new(@m){Array.new(@n){0}}
+	for i in 0...@m do
+	  for j in 0...@n do
+	    aux[i][j] = self.matrixD[i][j] - other.matrixD[i][j]
+	  end
+	end
+	mr = MatrixDens.new(other.m, other.n)
+	mr.rellenar(aux)
+	return (mr)
+#       else
+#        puts "BENCHOD"
+#       end
+    end
     
  end 
   
@@ -121,16 +121,15 @@ require './racional.rb'
       return (mr)
   
     else
-      other.+(self)
-#        aux = Array.new(@m){Array.new(@n){0}}
-# 	for i in 0...@m do
-# 	  for j in 0...@n do
-# 	     aux[i][j] = self.matrixD[i][j] + other.matrixD[i][j]
-# 	  end
-# 	end
-#       mr = MatrixDens.new(other.m, other.n)
-#       mr.rellenar(aux)
-#       return (mr)
+       aux = Array.new(@m){Array.new(@n){0}}
+	for i in 0...@m do
+	  for j in 0...@n do
+	     aux[i][j] = self.matrixD[i][j] + other.matrixD[i][j]
+	  end
+	end
+      mr = MatrixDens.new(other.m, other.n)
+      mr.rellenar(aux)
+      return (mr)
     end
   end
    
@@ -179,12 +178,12 @@ end
  mr.mostrar()
  puts
  
-#  mr = MatrixDens.new(2,2)
-#  mr = ma - mb
-#  puts "Resta de Matrices"
-#  mr.mostrar()
-#  puts
-#  
+ mr = MatrixDens.new(2,2)
+ mr = ma - mb
+ puts "Resta de Matrices"
+ mr.mostrar()
+ puts
+
  mc = SparseMatrix.new(2,2)
  mc.rellenar([[1,0],[0,0]])
  puts "Matriz Dispersa"
@@ -192,14 +191,14 @@ end
  puts
  
 # 
-#  mr = MatrixDens.new(2,2)
-#  mr = mc + mb
-#  puts "Suma Matriz Densa con Dispersa"
-# mr.mostrar()
-#  puts
+ mr = MatrixDens.new(2,2)
+ mr = mc + mb
+ puts "Suma Matriz Densa con Dispersa"
+ mr.mostrar()
+ puts
  
-#  puts
-#  puts "Resta Matriz Densa con Dispersa"
-#  mr = MatrixDens.new(2,2)
-#  mr = mb + mc
-#  mr.mostrar()
+ puts
+ puts "Resta Matriz Dispersa con Densa"
+ mr = MatrixDens.new(2,2)
+ mr = mb - mc
+ mr.mostrar()
