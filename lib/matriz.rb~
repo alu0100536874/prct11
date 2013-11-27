@@ -80,7 +80,7 @@ require './racional.rb'
   end
   
   def mostrarD
-    @matrixD.each{|key, value| puts "  #{key} #{value}" } 
+    @hash.each{|key, value| puts "  #{key} #{value}" } 
   end
   
   
@@ -112,7 +112,7 @@ require './racional.rb'
 #       hash_aux = hash.merge(other.hash){|key, val1, val2|val1 + val2}
 #       mr.rellenar(hash_aux)
       
-      hash_aux = self.data.merge(other.data){|key, val1, val2| val1.merge(val2){|key2, val1_2, val2_2|val2_2 + val1_2}}
+      hash_aux = self.hash.merge(other.hash){|key, val1, val2| val1.merge(val2){|key2, val1_2, val2_2|val2_2 + val1_2}}
                         #hash_aux = self.data.merge(other.data) {|key,val1,val2| val1+val2}
                         mr = SparseMatrix.new(self.m, self.n)
 			mr.rellenar(hash_aux)
