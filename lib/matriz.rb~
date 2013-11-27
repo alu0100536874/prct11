@@ -8,9 +8,7 @@ require './racional.rb'
       @m = m
       @n = n
       @matrix = Array.new(@m){Array.new(@n){0}}
-    end
-       
-        
+    end       
  end
     
  
@@ -22,7 +20,7 @@ require './racional.rb'
           super
      end
      
-  def rellenar (val)
+     def rellenar (val)
       for i in 0...@m
 	for j in 0...@n
 	  self.matrixD[i][j] = val[i][j] 
@@ -30,7 +28,7 @@ require './racional.rb'
       end
     end    
     
-    def mostrar
+     def mostrar
       mr = " "
       for i in 0...@m
         mr << " "
@@ -43,7 +41,7 @@ require './racional.rb'
       return mr
     end
      
-    def + (other)
+     def + (other)
 #       if (other.is_a?MatrixDens)
 	aux = Array.new(@m){Array.new(@n){0}}
 	for i in 0...@m do
@@ -60,54 +58,79 @@ require './racional.rb'
     end
       
      
-    def - (other)
-#       if (other.is_a?MatrixDens)
-       aux = Array.new(@m){Array.new(@n){0}}
-	for i in 0...@m do
-	  for j in 0...@n do
-	    aux[i][j] = self.matrixD[i][j] - other.matrixD[i][j]
-	  end
-	end
-	mr = MatrixDens.new(other.m, other.n)
-	mr.rellenar(aux)
-	return (mr)
-#       else
-#        puts "BENCHOD"
-#       end
-    end
+#     def - (other)
+# #       if (other.is_a?MatrixDens)
+#        aux = Array.new(@m){Array.new(@n){0}}
+# 	for i in 0...@m do
+# 	  for j in 0...@n do
+# 	    aux[i][j] = self.@matrixD[i][j] - other.@matrixD[i][j]
+# 	  end
+# 	end
+# 	mr = MatrixDens.new(other.m, other.n)
+# 	mr.rellenar(aux)
+# 	return (mr)
+# #       else
+# #        puts "BENCHOD"
+# #       end
+#     end
     
  end 
   
  class SparseMatrix < Matrix
   
-  def initialize(a,b,h = {})
-    @matrixD = Hash.new({})
-    super(a,b)
-    for i in h.keys do
-              @matrixD[i] = h[i]
-    end
+    attr_reader:hash , :matrixD
+   
+  def initialize(a,b)
+    super(a, b)
+    nelementos= (a * b)*0.6 
+    psincero = 0
+    @hash = Hash.new(0) 
   end
   
   def mostrarD
-    @matrixD.each{|key, value| puts "Fila #{key} Columna #{value}" } 
+    @matrixD.each{|key, value| puts "  #{key} #{value}" } 
+  end
+  
+  
+  def rellenar(val)
+    nceros = 0
+    @matrixD = Array.new(val)     
+     for i in 0...@m do
+       for j in 0...@n do
+           if (val[i][j]==0)
+               nceros=nceros+1
+            else
+               psincero="[#{i}][#{j}]"
+		if (val[i][j].is_a?Fraccion)
+		  a = val[i][j].num
+		  b = val[i][j].denom
+		  @hash[psincero] = Rational(a,b)             
+		else
+		  @hash[psincero] = val[i][j]
+		end
+	    end
+	end
+      end
   end
   
   
   def + (other)
     if (other.is_a?SparseMatrix)
       hash_aux = self.matrixD.merge(other.matrixD){|key, val1, val2| val1.merge(val2){|key2, val1_2, val2_2|val2_2 + val1_2}}
-      SparseMatrix.new(self.fil, self.col, hash_aux)
+      mr =SparseMatrix.new(self.fil, self.col, hash_aux)
+      return (mr)
   
     else
-      aux = Array.new(@m){Array.new(@n){0}}
-	for i in 0...@m do
-	  for j in 0...@n do
-	     aux[i][j] = self.matrix[i][j] + other.matrix[i][j]
-	  end
-	end
-      mr = Matrix.new(other.mmr, other.n)
-      mr.rellenar(aux)
-      return (mr)
+      other.+(self)
+#        aux = Array.new(@m){Array.new(@n){0}}
+# 	for i in 0...@m do
+# 	  for j in 0...@n do
+# 	     aux[i][j] = self.matrixD[i][j] + other.matrixD[i][j]
+# 	  end
+# 	end
+#       mr = MatrixDens.new(other.m, other.n)
+#       mr.rellenar(aux)
+#       return (mr)
     end
   end
    
@@ -115,23 +138,23 @@ require './racional.rb'
   def - (other)
     if (other.is_a?SparseMatrix)
       hash_aux = self.data.merge(other.data){|key, val1, val2| val1.merge(val2){|key2, val1_2, val2_2|val2_2 + val1_2}}
-      SparseMatrix.new(self.fil, self.col, hash_aux)
-  
-   else
-       aux = Array.new(@m){Array.new(@n){0}}
+      mr = SparseMatrix.new(self.fil, self.col, hash_aux)
+      return (mr)
+      
+    else
+      aux = Array.new(@m){Array.new(@n){0}}
 	for i in 0...@m do
 	  for j in 0...@n do
 	     aux[i][j] = self.matrix[i][j] - other.matrix[i][j]
 	  end
 	end
-      mr = Matrix.new(other.m, other.n)
+      mr = MatrixDens.new(other.m, other.n)
       mr.rellenar(aux)
       return (mr)
    end
     
-  end
-   
-   
+ end
+      
 end
   
   
@@ -156,21 +179,25 @@ end
  mr.mostrar()
  puts
  
- mr = ma - mb
- puts "Resta de Matrices"
- mr.mostrar()
- puts
- 
- mc = SparseMatrix.new(2,2,{0 => { 0 => 1}, 1 => { 1 => 3}})
+#  mr = MatrixDens.new(2,2)
+#  mr = ma - mb
+#  puts "Resta de Matrices"
+#  mr.mostrar()
+#  puts
+#  
+ mc = SparseMatrix.new(2,2)
+ mc.rellenar([[1,0],[0,0]])
  puts "Matriz Dispersa"
  mc.mostrarD()
  puts
  
-
+# 
 #  mr = MatrixDens.new(2,2)
-#  mr = mb + mc
+#  mr = mc + mb
 #  puts "Suma Matriz Densa con Dispersa"
-#  mr.mostrar()
+# mr.mostrar()
+#  puts
+ 
 #  puts
 #  puts "Resta Matriz Densa con Dispersa"
 #  mr = MatrixDens.new(2,2)
