@@ -10,6 +10,8 @@ require "./lib/matriz.rb"
 		   @mr = MatrixDens.new(2,2)
 		   @mc = SparseMatrix.new(2,2)
 		   @mc.rellenar([[1,0],[0,0]])
+# 		   @md = SparseMatrix.new(2,2)
+# 		   @md.rellenar([[0,Fraccion.new(1,2)],[0,0]])
 
                 end
                
@@ -36,6 +38,10 @@ require "./lib/matriz.rb"
                  it " Matriz dispersa" do
                         @mc.mostrarD.should eq ([[1, 0], [0, 0]])
 		 end
+		 
+# 		 it " Matriz dispersa con racional" do
+#                         @md.mostrarD.should eq ([[0, 1/2], [0, 0]])
+# 		 end
                 
                 end
                 

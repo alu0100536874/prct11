@@ -2,6 +2,10 @@
 
 require './lib/racional.rb'
 
+#---------------------------------------------------------------------------------------------------------------------------------
+
+# Clase Matrix Padre, es la clase de la que se va heredar la incializción de los matrices hijos con sus filas y columnas
+
  class Matrix
   attr_reader:m, :n, :val, :matrix
     def initialize(m,n)
@@ -11,14 +15,21 @@ require './lib/racional.rb'
     end       
  end
     
+ #---------------------------------------------------------------------------------------------------------------------------------
+
+ # La Clase MatrixDensa hija de Matrix se implementan todas las operaciones a realizar por las Matrice Densas 
  
  class MatrixDens < Matrix
     attr_accessor :matrixD
     
-     def initialize(rows,cols)
+#      Incialización de matriz
+
+    def initialize(rows,cols)
          @matrixD = Array.new(rows) {Array.new(cols)}
-          super
+         super
      end
+     
+#    Método para rellenar y asignar valores a la matriz  
      
      def rellenar (val)
       for i in 0...@m
@@ -27,6 +38,8 @@ require './lib/racional.rb'
 	end
       end
     end    
+    
+#    Utlizo este método mostrar para imprimir los matrices
     
      def mostrar
       mr = " "
@@ -40,6 +53,8 @@ require './lib/racional.rb'
       print mr
       return mr
     end
+    
+#    La suma matrices densa, cuyo valores obtenido se rellenan con el objeto de mr 
      
      def + (other)
 	aux = Array.new(@m){Array.new(@n){0}}
@@ -52,8 +67,9 @@ require './lib/racional.rb'
 	mr.rellenar(aux)
 	return(mr)
     end
-      
-     
+   
+#   La resta matrices densa, cuyo valores obtenido se rellenan con el objeto de mr 
+       
     def - (other)
        aux = Array.new(@m){Array.new(@n){0}}
 	for i in 0...@m do
@@ -68,20 +84,30 @@ require './lib/racional.rb'
     
  end 
   
+#--------------------------------------------------------------------------------------------------------------------------------- 
+ 
+# La Clase SparseMatrix  otra hija de Matrix que se caracteriza por tener el 60% de los elementos nulos implementan 
+# todas las operaciones a realizar por las Matrices Disperas 
+ 
  class SparseMatrix < Matrix
   
   attr_reader:hash , :matrixD
    
+#      Incialización de matriz
+  
   def initialize(a,b)
     super(a, b)
     posaux = 0
     @hash = Hash.new(0) 
   end
   
+  #    Utlizo este método mostrar para imprimir los matrices
+  
   def mostrarD
     @matrixD.each{|key, value| puts "  #{key} #{value}" } 
   end
   
+  #    Método para rellenar y asignar valores a la matriz  
   
   def rellenar(val)
     @matrixD = Array.new(val)     
@@ -99,6 +125,8 @@ require './lib/racional.rb'
       end
   end
   
+#   La suma matrices dispersa, que tras comprobar si el tipo de objeto pasado por parametro. se realiza una operacion o la otra
+#  los valores obtenido se rellenan con el objeto de mr  
   
   def + (other)
     if (other.is_a?SparseMatrix)
@@ -120,6 +148,8 @@ require './lib/racional.rb'
     end
   end
    
+#  La resta matrices dispersa, que tras comprobar si el tipo de objeto pasado por parametro, se realiza una operacion o la otra
+#  los valores obtenido se rellenan con el objeto de mr  
   
   def - (other)
     if (other.is_a?SparseMatrix)
@@ -142,8 +172,9 @@ require './lib/racional.rb'
  end
       
 end
-  
-  
+#---------------------------------------------------------------------------------------------------------------------------------  
+
+#   Subprograma Main para comprobar los métodos y las operaciones con las matrices
 
  puts "--Practica 10--" 
  puts
@@ -202,7 +233,7 @@ end
 #  puts
  
  md = SparseMatrix.new(2,2)
- md.rellenar([[0,1],[0,0]])
+ md.rellenar([[0,Fraccion.new(1,2)],[0,0]])
  puts "Matriz Dispersa B"
  md.mostrarD()
  puts

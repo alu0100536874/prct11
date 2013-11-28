@@ -76,8 +76,10 @@ class Fraccion
 	  fracaux.to_s
 	end
 	
-  #---------------------------------------------------------------------------------------------------------------------------------
-
+#---------------------------------------------------------------------------------------------------------------------------------
+	
+#  A los método de suma racional se le comprueba si es de tipo es Fraccion y si es un número entero se le incializa con denominador 1
+	
 	def +(fracaux)
 	  if fracaux.is_a? Fraccion
 	    mcm = (@denom/gcd(@denom,fracaux.denom)) * fracaux.denom 
@@ -97,10 +99,11 @@ class Fraccion
 	      "#{numr}/#{mcm}"
 	    end
 	  end
-	  end
+	end
 
-  #---------------------------------------------------------------------------------------------------------------------------------
-	
+#---------------------------------------------------------------------------------------------------------------------------------
+#  A los método de resta racional se le comprueba si es de tipo es Fraccion y si es un número entero se le incializa con denominador 1
+	  
 	def - (fracaux)
 
 	   if fracaux.is_a? Fraccion
