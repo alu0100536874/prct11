@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require './racional.rb'
+require './lib/racional.rb'
 
  class Matrix
   attr_reader:m, :n, :val, :matrix
@@ -74,33 +74,27 @@ require './racional.rb'
    
   def initialize(a,b)
     super(a, b)
-    nelementos= (a * b)*0.6 
-    psincero = 0
+    posaux = 0
     @hash = Hash.new(0) 
   end
   
   def mostrarD
-    @hash.each{|key, value| puts "  #{key} #{value}" } 
+    @matrixD.each{|key, value| puts "  #{key} #{value}" } 
   end
   
   
   def rellenar(val)
-    nceros = 0
     @matrixD = Array.new(val)     
      for i in 0...@m do
        for j in 0...@n do
-           if (val[i][j]==0)
-               nceros=nceros+1
-            else
-               psincero="[#{i}][#{j}]"
+               posaux ="#{i}#{j}"
 		if (val[i][j].is_a?Fraccion)
 		  a = val[i][j].num
 		  b = val[i][j].denom
-		  @hash[psincero] = Rational(a,b)             
+		  @hash[posaux] = Fraccion.new(a,b)             
 		else
-		  @hash[psincero] = val[i][j]
+		  @hash[posaux] = val[i][j]
 		end
-	    end
 	end
       end
   end
@@ -108,14 +102,9 @@ require './racional.rb'
   
   def + (other)
     if (other.is_a?SparseMatrix)
-#       mr =SparseMatrix.new(other.m, other.n)
-#       hash_aux = hash.merge(other.hash){|key, val1, val2|val1 + val2}
-#       mr.rellenar(hash_aux)
-      
       hash_aux = self.hash.merge(other.hash){|key, val1, val2| val1.merge(val2){|key2, val1_2, val2_2|val2_2 + val1_2}}
-                        #hash_aux = self.data.merge(other.data) {|key,val1,val2| val1+val2}
-                        mr = SparseMatrix.new(self.m, self.n)
-			mr.rellenar(hash_aux)
+      mr = SparseMatrix.new(self.m, self.n)
+      mr.rellenar(hash_aux)
       return (mr)
   
     else
@@ -178,7 +167,7 @@ end
  
  mr = MatrixDens.new(2,2)
  mr = ma - mb
- puts "Resta de Matrices Densas"
+ puts "Resta de Matrices Densas" 
  mr.mostrar()
  puts
 
@@ -196,15 +185,21 @@ end
 
  mr = MatrixDens.new(2,2)
  mr = mb - mc
- puts "Resta Matriz Dispersa con Densa"
+ puts "Resta Matriz Densa con Dispersa"
  mr.mostrar()
  puts
  
  mr = MatrixDens.new(2,2)
  mr = mc - mb
- puts "Resta Matriz Densa con Dispersa"
+ puts "Resta Matriz Dispersa con Densa"
  mr.mostrar()
  puts
+ 
+#  mr = MatrixDens.new(2,2)
+#  mr = mc + ma
+#  puts "Suma Matriz Densa Racional con Dispersa"
+#  mr.mostrar()
+#  puts
  
  md = SparseMatrix.new(2,2)
  md.rellenar([[0,1],[0,0]])
@@ -212,8 +207,8 @@ end
  md.mostrarD()
  puts
  
- mr = SparseMatrix.new(2,2)
- mr = mc + md
- puts "Suma Matrices Dispersas"
- mr.mostrarD()
- puts
+#  mr = SparseMatrix.new(2,2)
+#  mr = mc + md
+#  puts "Suma Matrices Dispersas"
+#  mr.mostrarD()
+#  puts
