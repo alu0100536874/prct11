@@ -32,8 +32,8 @@ require './lib/racional.rb'
 #    Método para rellenar y asignar valores a la matriz  
      
      def rellenar (val)
-      for i in 0...@m
-	for j in 0...@n
+      @m.times do |i|
+	@n.times do |j|
 	  self.matrixD[i][j] = val[i][j] 
 	end
       end
@@ -43,9 +43,9 @@ require './lib/racional.rb'
     
      def mostrar
       mr = " "
-      for i in 0...@m
+      @m.times do |i|
         mr << " "
-        for j in 0...@n
+        @n.times do |j|
          mr << "#{matrixD[i][j]} "
         end
         mr << "\n "
@@ -58,8 +58,8 @@ require './lib/racional.rb'
      
      def + (other)
 	aux = Array.new(@m){Array.new(@n){0}}
-	for i in 0...@m do
-	  for j in 0...@n do
+	@m.times do |i|
+	   @n.times do |j|
 	     aux[i][j] = self.matrixD[i][j] + other.matrixD[i][j]
 	  end
 	end
@@ -72,8 +72,8 @@ require './lib/racional.rb'
        
     def - (other)
        aux = Array.new(@m){Array.new(@n){0}}
-	for i in 0...@m do
-	  for j in 0...@n do
+	@m.times do |i|  
+	   @n.times do |j|
 	    aux[i][j] = self.matrixD[i][j] - other.matrixD[i][j]
 	  end
 	end
@@ -111,8 +111,8 @@ require './lib/racional.rb'
   
   def rellenar(val)
     @matrixD = Array.new(val)     
-     for i in 0...@m do
-       for j in 0...@n do
+     @m.times do |i| 
+        @n.times do |j|
                posaux ="#{i}#{j}"
 		if (val[i][j].is_a?Fraccion)
 		  a = val[i][j].num
@@ -137,8 +137,8 @@ require './lib/racional.rb'
   
     else
        aux = Array.new(@m){Array.new(@n){0}}
-	for i in 0...@m do
-	  for j in 0...@n do
+	@m.times do |i| 
+	   @n.times do |j|
 	     aux[i][j] = self.matrixD[i][j] + other.matrixD[i][j]
 	  end
 	end
@@ -159,8 +159,8 @@ require './lib/racional.rb'
       
     else
       aux = Array.new(@m){Array.new(@n){0}}
-	for i in 0...@m do
-	  for j in 0...@n do
+	@m.times do |i| 
+	   @n.times do |j|
 	     aux[i][j] = self.matrixD[i][j] - other.matrixD[i][j]
 	  end
 	end
