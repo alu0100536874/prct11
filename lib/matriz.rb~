@@ -25,8 +25,9 @@ require './lib/racional.rb'
 #      Incialización de matriz
 
     def initialize(rows,cols)
+	 super
          @matrixD = Array.new(rows) {Array.new(cols)}
-         super
+         
      end
      
 #    Método para rellenar y asignar valores a la matriz  
@@ -97,7 +98,7 @@ require './lib/racional.rb'
   
   def initialize(a,b)
     super(a, b)
-    posaux = 0
+    posNN = 0
     @hash = Hash.new(0) 
   end
   
@@ -110,17 +111,11 @@ require './lib/racional.rb'
   #    Método para rellenar y asignar valores a la matriz  
   
   def rellenar(val)
-    @matrixD = Array.new(val)     
+    @matrixD = Array.new(val)
      @m.times do |i| 
         @n.times do |j|
-               posaux ="#{i}#{j}"
-		if (val[i][j].is_a?Fraccion)
-		  a = val[i][j].num
-		  b = val[i][j].denom
-		  @hash[posaux] = Fraccion.new(a,b)             
-		else
-		  @hash[posaux] = val[i][j]
-		end
+		 posNN ="#{i}#{j}"
+		 @hash[posaux] = val[i][j]
 	end
       end
   end
@@ -159,8 +154,8 @@ require './lib/racional.rb'
       
     else
       aux = Array.new(@m){Array.new(@n){0}}
-	@m times|i| do 
-	   @n times|j| do
+	@m.times do |i| 
+	   @n.times do |j|
 	     aux[i][j] = self.matrixD[i][j] - other.matrixD[i][j]
 	  end
 	end
