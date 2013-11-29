@@ -192,6 +192,7 @@ class Fraccion
 	end
 		
   #---------------------------------------------------------------------------------------------------------------------------------
+# Este método también fue añadido para evitar que las incompatibilidad de sumas en el orden de la llamada de los métodos
 	
 	 def coerce(other)
 	    [Fraccion.new(other), self]
