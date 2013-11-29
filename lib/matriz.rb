@@ -83,6 +83,32 @@ require './lib/racional.rb'
 	return (mr)
     end
     
+    
+    def maximo
+      max=matrixD[0][0] # Maximo toma como valor inicial el primer elemento de la matriz        
+        @m.times do |i|
+	  @n.times do |j|
+	    if (matrixD[i][j] > max)
+	      max = matrixD[i][j]
+	    end
+	 end   
+       end                                          
+    return (max)
+  end
+     
+    
+  def minimo
+      min=matrixD[0][0] # Maximo toma como valor inicial el primer elemento de la matriz        
+        @m.times do |i|
+	  @n.times do |j|
+	    if (matrixD[i][j] < min)
+	      min = matrixD[i][j]
+	    end
+	 end   
+       end                                          
+    return (min)
+  end
+     
  end 
   
 #--------------------------------------------------------------------------------------------------------------------------------- 
@@ -108,7 +134,7 @@ require './lib/racional.rb'
     @matrixD.each{|key, value| puts "  #{key} #{value}" } 
   end
   
-  #    Método para rellenar y asignar valores a la matriz  
+#    Método para rellenar y asignar valores a la matriz  
   
   def rellenar(val)
     @matrixD = Array.new(val)
@@ -180,7 +206,7 @@ end
  puts
  
  mb = MatrixDens.new(2,2)
- mb.rellenar([[1,1],[1,1]])
+ mb.rellenar([[10,1],[1,-1]])
  puts "Matriz Densa B"
  mb.mostrar()
  puts
@@ -219,6 +245,14 @@ end
  mr = mc - mb
  puts "Resta Matriz Dispersa con Densa"
  mr.mostrar()
+ puts
+ 
+ print "El valor maximo de la matriz es #{mb.maximo}"
+ puts
+ puts
+ 
+ print "El valor minimo de la matriz es #{mb.minimo}"
+ puts
  puts
  
 #  mr = MatrixDens.new(2,2)

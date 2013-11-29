@@ -36,7 +36,7 @@ require "./lib/matriz.rb"
                  end
 		  
                  it " Matriz dispersa" do
-                        @mc.mostrarD.should eq ([[1, 0], [0, 0]])
+                        @mc.mostrar.should eq ([[1, 0], [0, 0]])
 		 end
 		 
 # 		 it " Matriz dispersa con racional" do
@@ -75,6 +75,7 @@ require "./lib/matriz.rb"
 		    @mr = @mc-@mb
 		    @mr.mostrar.should eq("  0 -1 \n  -1 -1 \n ")
 		  end    
+		  
 		end
                   
        end
